@@ -62,6 +62,8 @@ class ClouderServer(models.Model):
         """
         Remove the configuration file.
         """
+        super(ClouderServer, self).purge()
+
         if self.supervision_id:
             ssh = self.connect(self.supervision_id.fullname,
                                username='shinken')
