@@ -52,7 +52,7 @@ class ClouderServer(models.Model):
                 _("You need to specify the sysadmin email in configuration"))
 
         self.execute_local(['mkdir', '/tmp/key_' + self.env.uid])
-        self.execute_local(['ssh-keygen', '-t', 'rsa', '-C',
+        self.execute_local(['ssh-keygen', '-t', 'rsa', '-b', '4096', '-C',
                             self.email_sysadmin, '-f',
                             '/tmp/key_' + self.env.uid + '/key', '-N', ''])
         return True
@@ -753,7 +753,7 @@ class ClouderContainer(models.Model):
         access it.
         """
         self.purge_key()
-        self.execute_local(['ssh-keygen', '-t', 'rsa', '-C',
+        self.execute_local(['ssh-keygen', '-t', 'rsa', '-b', '4096', '-C',
                             self.email_sysadmin, '-f', self.home_directory +
                             '/.ssh/keys/' + self.fullname, '-N', ''])
         self.execute_write_file(self.home_directory + '/.ssh/config',
